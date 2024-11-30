@@ -4,9 +4,7 @@ import org.llschall.ardwloop.ArdwloopStarter;
 import org.llschall.ardwloop.IArdwConfig;
 import org.llschall.ardwloop.IArdwProgram;
 import org.llschall.ardwloop.structure.StructureTimer;
-import org.llschall.ardwloop.structure.data.LoopData;
-import org.llschall.ardwloop.structure.data.SerialData;
-import org.llschall.ardwloop.structure.data.SetupData;
+import org.llschall.ardwloop.value.ValueMap;
 import org.senegas.trafficlight.model.TrafficLightModel;
 
 import java.beans.PropertyChangeEvent;
@@ -45,12 +43,12 @@ public class SerialMessageEmitter implements IArdwProgram, PropertyChangeListene
     }
 
     @Override
-    public SetupData ardwSetup(SetupData setupData) {
-        return new SetupData(new SerialData(0,0,0,0,0,0));
+    public ValueMap ardwSetup(ValueMap setupData) {
+        return new ValueMap();
     }
 
     @Override
-    public LoopData ardwLoop(LoopData loopData) {
+    public ValueMap ardwLoop(ValueMap loopData) {
 
         StructureTimer.get().delayMs(99);
 
@@ -58,16 +56,6 @@ public class SerialMessageEmitter implements IArdwProgram, PropertyChangeListene
         int ay = model.isYellowOn() ? 1 : 0;
         int az = model.isGreenOn() ? 1 : 0;
 
-        return new LoopData(new SerialData(0,0,0,ax,ay,az));
-    }
-
-    @Override
-    public int getRc() {
-        return 1;
-    }
-
-    @Override
-    public int getSc() {
-        return 1;
+        return new ValueMap(0,0,ax,ay,az);
     }
 }
