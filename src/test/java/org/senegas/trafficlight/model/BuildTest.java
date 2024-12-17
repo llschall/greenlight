@@ -8,6 +8,6 @@ public class BuildTest {
 
     @Test
     public void test() {
-        Assertions.assertEquals("0.2.2",ArdwloopStarter.VERSION);
+        Assertions.assertEquals("0.2.5",ArdwloopStarter.VERSION);
     }
 }
