@@ -7,9 +7,7 @@ import org.senegas.trafficlight.model.TrafficLightModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -56,6 +54,10 @@ public class TrafficLightFrame extends JFrame implements PropertyChangeListener 
         initComponents();
         initSerialMessageEmitter();
         createTrayIcon();
+
+        addKeyListener(new ExitKeyListener());
+        setFocusable(true);
+        requestFocus();
 
         this.controller.startPolling(getLightURL());
     }
@@ -260,5 +262,24 @@ public class TrafficLightFrame extends JFrame implements PropertyChangeListener 
         this.redSpinner.setValue(this.controller.getModel().getRedDelay());
         this.yellowSpinner.setValue(this.controller.getModel().getYellowDelay());
         this.greenSpinner.setValue(this.controller.getModel().getGreenDelay());
+    }
+}
+
+class ExitKeyListener implements KeyListener {
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // do nothing
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // do nothing
     }
 }
