@@ -2,6 +2,7 @@ package org.senegas.trafficlight.view;
 
 import net.miginfocom.swing.MigLayout;
 import org.apache.hc.core5.net.URIBuilder;
+import org.llschall.ardwloop.ArdwloopStarter;
 import org.senegas.trafficlight.TrafficLightApp;
 import org.senegas.trafficlight.model.TrafficLightModel;
 
@@ -33,6 +34,8 @@ public class TrafficLightFrame extends JFrame implements PropertyChangeListener 
 
     private final TrafficLightController controller;
 
+    private final JPanel versionPnl;
+
     private JToggleButton redButton;
     private JToggleButton yellowButton;
     private JToggleButton greenButton;
@@ -50,6 +53,8 @@ public class TrafficLightFrame extends JFrame implements PropertyChangeListener 
         setLayout(new BorderLayout());
         this.controller = new TrafficLightController(model);
         model.addPropertyChangeListener(this);
+
+        this.versionPnl = createVersionLabel();
 
         initComponents();
         initSerialMessageEmitter();
@@ -98,8 +103,18 @@ public class TrafficLightFrame extends JFrame implements PropertyChangeListener 
 
         this.trafficLightComponent = new TrafficLightComponent(this.controller.getModel());
 
+        this.add(versionPnl, BorderLayout.NORTH);
         this.add(actionPanel, BorderLayout.CENTER);
         this.add(trafficLightComponent, BorderLayout.EAST);
+    }
+
+    JPanel createVersionLabel() {
+        JLabel label = new JLabel();
+        label.setFont(label.getFont().deriveFont(Font.ITALIC, 8));
+        label.setText("Featuring Ardwloop v"+ ArdwloopStarter.VERSION);
+        JPanel panel = new JPanel();
+        panel.add(label);
+        return panel;
     }
 
     private Properties loadAppProperties() {
