@@ -24,10 +24,7 @@ public class TrafficLightApp {
 
     private static final Logger LOGGER = Logger.getLogger(TrafficLightApp.class.getName());
 
-    public static final String TITLE = "Traffic Light App";
-    //TODO
-    // // see https://stackoverflow.com/questions/33020069/how-to-get-version-attribute-from-a-gradle-build-to-be-included-in-runtime-swing
-    public static final String VERSION = "2.1.0";
+    public static final String TITLE = "Green Light App";
 
     static {
         try {
@@ -49,13 +46,6 @@ public class TrafficLightApp {
     }
 
     public static void main(String[] args) {
-        final String asciiArtTitle = "\n _____           __  __ _      _     _       _     _   \n" +
-                "|_   _| __ __ _ / _|/ _(_) ___| |   (_) __ _| |__ | |_ \n" +
-                "  | || '__/ _` | |_| |_| |/ __| |   | |/ _` | '_ \\| __|\n" +
-                "  | || | | (_| |  _|  _| | (__| |___| | (_| | | | | |_ \n" +
-                "  |_||_|  \\__,_|_| |_| |_|\\___|_____|_|\\__, |_| |_|\\__|\n" +
-                "                                       |___/           ";
-        LOGGER.log(Level.INFO, asciiArtTitle);
         LOGGER.log(Level.INFO, TITLE + " has started.");
 
         EventQueue.invokeLater(() -> {
@@ -68,8 +58,7 @@ public class TrafficLightApp {
 
         final TrafficLightModel model = new TrafficLightModel();
 
-        final String title = MessageFormat.format("{0} v{1}", TITLE, VERSION);
-        final JFrame f = new TrafficLightFrame(title, model);
+        final JFrame f = new TrafficLightFrame(TITLE, model);
 
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.addWindowListener(new WindowAdapter() {
